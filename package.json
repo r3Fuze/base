@@ -1,0 +1,22 @@
+{
+  "name": "base",
+  "version": "0.0.0",
+  "description": "No description",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "jake"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/r3Fuze/base"
+  },
+  "keywords": [
+    "base"
+  ],
+  "author": "fuzelol",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/r3Fuze/base/issues"
+  }
+}
