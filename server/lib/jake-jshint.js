@@ -6,6 +6,7 @@ var fs     = require("fs"),
 var checkmark = "\u2714", // ✔ //
     cross     = "\u2718"; // ✘ //
 
+var logCode = true;
 
 // Lint single file
 function lintFile(filename, options, globals) {
@@ -31,11 +32,11 @@ function lintFile(filename, options, globals) {
 
             // If the source of the error is known, log it and the line it on
             if (error.evidence) {
-                console.log(" " + color.bold("Ln " + error.line) + ": " + color.underline(error.evidence.trim()) + color.yellow(" (" + error.code + ")"));
+                console.log("  " + color.bold("Ln " + error.line) + ": " + color.underline(error.evidence.trim()) + (logCode ? color.yellow(" (" + error.code + ")") : ""));
             }
             
             // Log the error type
-            console.log("     " + color.red.bold(error.reason) + "\n");
+            console.log("      " + color.red.bold(error.reason) + "\n");
         }
     }
     

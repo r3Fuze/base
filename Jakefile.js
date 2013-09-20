@@ -1,8 +1,12 @@
+/* global task, desc, jake, fail, complete */
+
 var conf = require("./server/conf"),
     log  = conf.log;
 
 desc("Lint JavaScript files");
 task("lint", function() {
+    log.info(this.description);
+    
     var lint = require("./server/lib/jake-jshint");
     var files = new jake.FileList();
     

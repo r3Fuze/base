@@ -18,7 +18,7 @@ app.get("/", function(req, res) {
 var server = http.createServer(app);
 
 exports.listen = function(port, ip, callback) {
-    server.listen(port, ip, callback); 
+    server.listen(port, ip, callback);
 };
 
 exports.close = function(callback) {

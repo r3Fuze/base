@@ -9,10 +9,20 @@ module.exports = {
         options: {
             bitwise: true,
             camelcase: true,
+            curly: false,
             immed: true,
             indent: 4,
             eqeqeq: true,
             trailing: true,
+            forin: true,
+            newcap: true,
+            noarg: true,
+            noempty: true,
+            nonew: true,
+            quotmark: "double",
+            undef: true,
+            unused: false,
+            
             node: true
         }
     },
