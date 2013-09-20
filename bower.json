@@ -1,0 +1,20 @@
+{
+  "name": "base",
+  "version": "0.0.1",
+  "homepage": "https://github.com/r3Fuze/base",
+  "author": "fuzelol,
+  "description": "No description",
+  "main": "index.js",
+  "keywords": [
+    "base"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
