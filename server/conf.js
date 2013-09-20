@@ -4,6 +4,19 @@ module.exports = {
     
     secret: "NOT_SECRET",
     
+    lint: {
+        globals: {},
+        options: {
+            bitwise: true,
+            camelcase: true,
+            immed: true,
+            indent: 4,
+            eqeqeq: true,
+            trailing: true,
+            node: true
+        }
+    },
+    
     // exports
     log: require("logule").init(module)
 };

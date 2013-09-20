@@ -24,6 +24,8 @@
     "logule": "~2.0.0"
   },
   "devDependencies": {
-    "jake": "~0.7.2"
+    "jake": "~0.7.2",
+    "jshint": "~2.1.10",
+    "cli-color": "~0.2.3"
   }
 }
