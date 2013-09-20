@@ -7,7 +7,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "jake"
+    "test": "jake test"
   },
   "keywords": [
     "base"
@@ -26,6 +26,9 @@
   "devDependencies": {
     "jake": "~0.7.2",
     "jshint": "~2.1.10",
-    "cli-color": "~0.2.3"
+    "cli-color": "~0.2.3",
+    "mocha": "~1.13.0",
+    "chai": "~1.8.0",
+    "superagent": "~0.15.4"
   }
 }
