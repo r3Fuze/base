@@ -1,0 +1,1 @@
+- Added "UserKnownHostsFile ~/.ssh/known_hosts" to ~/.ssh/config to remove "Warning: Permanently added the RSA host key for IP address 'xxx.xx.xxx.xxx' to the list of known hosts." warning
