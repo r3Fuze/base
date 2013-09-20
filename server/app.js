@@ -6,10 +6,14 @@ var express = require("express"),
 
 var app = express();
 
+
+
 app.get("/", function(req, res) {
     log.info("sent response");
     res.send("Hello World!");
 });
+
+
 
 var server = http.createServer(app);
 
