@@ -1,5 +1,7 @@
 {
   "name": "base",
+  "author": "fuzelol",
+  "license": "MIT",
   "version": "0.0.1",
   "description": "No description",
   "main": "index.js",
@@ -7,16 +9,21 @@
   "scripts": {
     "test": "jake"
   },
+  "keywords": [
+    "base"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/r3Fuze/base"
   },
-  "keywords": [
-    "base"
-  ],
-  "author": "fuzelol",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/r3Fuze/base/issues"
+  },
+  "dependencies": {
+    "express": "~3.4.0",
+    "logule": "~2.0.0"
+  },
+  "devDependencies": {
+    "jake": "~0.7.2"
   }
 }
