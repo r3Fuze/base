@@ -5,6 +5,9 @@ var conf  = require("./server/conf"),
     color = require("cli-color");
 
 
+/* TODO: Fix so it works with
+ * prerequisites and3 async
+ * ====================== */
 // Keep old task function
 var _task = task;
 
@@ -21,10 +24,17 @@ task = function(name, cb) {
         // Inject logTask into callback
         logTask(t);
         
-        // Call the real callback with the task as 'this'
-        cb.call(t);
+        // Call the real callback with the task as 'this' and the arguments passed by the callback
+        cb.apply(t, t.args);
     };
 };
+
+
+desc("Testing stuff");
+task("wat", function(strict) {
+    if (strict === "true") log.info("STRICT");
+    else log.info("NOT STRICT");
+});
 
 
 task("default", ["lint", "test"]);
