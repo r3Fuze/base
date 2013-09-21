@@ -39,7 +39,7 @@ task("default", ["lint", "test"]);
 
 desc("Run the app");
 task("run", function(port) {
-    port = port || conf.PORT    
+    port = port || conf.PORT;
     app.listen(port, conf.IP, function() {
         // Using \u00A0 instead of a regular space because Cloud9 is a jerk
         // and prints 'Cloud9 Your application is running at ***' when it sees
