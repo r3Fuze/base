@@ -36,7 +36,18 @@ describe("App", function() {
     
     it("should have a status of 404 when the pages doesn't exist", function(done) {
         request.get(url + "does/not/exist", function(res) {
+            expect(res).to.exist;
             expect(res.status).to.equal(404);
+            
+            done();
+        });
+    });
+    
+    it("should have 'Hello World!' on the page", function(done) {
+        request.get(url, function(res) {
+            expect(res).to.exist;
+            expect(res.status).to.equal(200);
+            expect(res.text).to.contain("Hello World!");
             
             done();
         });

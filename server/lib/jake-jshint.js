@@ -3,8 +3,8 @@ var fs     = require("fs"),
     color  = require("cli-color");
     
 // Symbols to use in log
-var checkmark = "\u2714", // ✔ //
-    cross     = "\u2718"; // ✘ //
+var checkmark = "\u2713", // ✓ //
+    cross     = "\u2716"; // ✖ //
 
 var logCode = true;
 
