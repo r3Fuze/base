@@ -1,6 +1,7 @@
 /* global task:true, desc, jake, fail, complete */
 
 var conf  = require("./server/conf"),
+    app   = require("./server/app"),
     log   = conf.log,
     color = require("cli-color");
 
@@ -35,6 +36,18 @@ task = function() {
 
 
 task("default", ["lint", "test"]);
+
+desc("Run the app");
+task("run", function(port) {
+    port = port || conf.PORT    
+    app.listen(port, conf.IP, function() {
+        // Using \u00A0 instead of a regular space because Cloud9 is a jerk
+        // and prints 'Cloud9 Your application is running at ***' when it sees
+        // 'Server listening on' in the console.. :(
+        console.log(" " + color.green("Server\u00A0listening on %s:%s"), conf.IP, port);
+        console.log(" " + color.bold.green("Ctrl+C to exit"));
+    });
+});
 
 desc("Lint JavaScript files");
 task("lint", function() {
