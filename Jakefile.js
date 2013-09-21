@@ -12,12 +12,16 @@ var conf  = require("./server/conf"),
 var _task = task;
 
 // Override task function
-task = function(name, cb) {
+task = function() {
+    var args = arguments;
     // If callback is an object (default task) use the old task function
-    if (typeof cb === "object") return _task(name, cb);
+    if (typeof args[1] === "object") return _task.apply(this, args);
     
     // Create task with old function
-    var t = _task(name, cb);
+    var t = _task.apply(this, args);
+    
+    // Find the callback. Last element might be 'opts'
+    var cb = typeof args[args.length - 1] === "function" ? args[args.length - 1] : args[args.length - 2];
     
     // Override the callback
     t.action = function() {
@@ -28,13 +32,6 @@ task = function(name, cb) {
         cb.apply(t, t.args);
     };
 };
-
-
-desc("Testing stuff");
-task("wat", function(strict) {
-    if (strict === "true") log.info("STRICT");
-    else log.info("NOT STRICT");
-});
 
 
 task("default", ["lint", "test"]);
@@ -65,9 +62,18 @@ task("test", function() {
     
     mocha.run(function(failures) {
         if (failures) fail("Mocha test failed");
+        complete();
     });
-});
+}, { async: true });
 
+
+desc("Testing stuff");
+task("wat", function(strict) {
+    if (strict === "true") log.info("STRICT");
+    else log.info("NOT STRICT");
+    
+    log.info("Y U NO LOG");
+});
 
 function logTask(t) {
     console.log("\n" + color.blue("===== ") + color.bold.underline.yellow(t.description) + color.blue(" ====="));
