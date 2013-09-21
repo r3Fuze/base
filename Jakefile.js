@@ -1,34 +1,36 @@
-/* global task, desc, jake, fail, complete */
+/* global task:true, desc, jake, fail, complete */
 
-var conf = require("./server/conf"),
-    log  = conf.log,
-    color  = require("cli-color");
+var conf  = require("./server/conf"),
+    log   = conf.log,
+    color = require("cli-color");
 
 
+// Keep old task function
+var _task = task;
 
-// Document this later
-/*var _task = task;
-task = function(name, description, cb) {
-    if (arguments.length !== 3) {
-        _task(name, description);
-        return;
-    }
-
-    var callback = function() {
-        begin(description);
-        cb();
-    };
+// Override task function
+task = function(name, cb) {
+    // If callback is an object (default task) use the old task function
+    if (typeof cb === "object") return _task(name, cb);
     
-    desc(description);
-    _task(name, callback);
-};*/
+    // Create task with old function
+    var t = _task(name, cb);
+    
+    // Override the callback
+    t.action = function() {
+        // Inject logTask into callback
+        logTask(t);
+        
+        // Call the real callback with the task as 'this'
+        cb.call(t);
+    };
+};
 
 
 task("default", ["lint", "test"]);
 
 desc("Lint JavaScript files");
 task("lint", function() {
-    begin(this);
     var lint = require("./server/lib/jake-jshint");
     var files = new jake.FileList();
     
@@ -41,7 +43,6 @@ task("lint", function() {
 
 desc("Run tests with Mocha");
 task("test", function() {
-    begin(this);
     var MochaTest = require("mocha");
     var mocha = new MochaTest({ reporter: "spec", ui: "bdd" });
     var files = new jake.FileList();
@@ -58,6 +59,6 @@ task("test", function() {
 });
 
 
-function begin(test) {
-    console.log("\n" + color.blue("===== ") + color.bold.underline.yellow(test.description) + color.blue(" ====="));
+function logTask(t) {
+    console.log("\n" + color.blue("===== ") + color.bold.underline.yellow(t.description) + color.blue(" ====="));
 }
