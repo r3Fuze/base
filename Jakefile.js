@@ -21,16 +21,16 @@ task = function() {
     // Create task with old function
     var t = _task.apply(this, args);
     
-    // Find the callback. Last element might be 'opts'
-    var cb = typeof args[args.length - 1] === "function" ? args[args.length - 1] : args[args.length - 2];
+    // Save the old callback
+    var _action = t.action;
     
     // Override the callback
     t.action = function() {
         // Inject logTask into callback
         logTask(t);
         
-        // Call the real callback with the task as 'this' and the arguments passed by the callback
-        cb.apply(t, t.args);
+        // Call the old callback with the task as 'this' and the arguments passed by the callback
+        _action.apply(t, t.args);
     };
 };
 
