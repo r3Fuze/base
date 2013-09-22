@@ -58,9 +58,11 @@ task("lint", function() {
     files.include("**/*.js");
     files.exclude(["node_modules"]);
     
-    var pass = lint.run(files.toArray(), conf.lint.options, conf.lint.globals);
-    if (!pass) fail("Lint failed");
-});
+    var pass = lint.run(files.toArray(), conf.lint.options, conf.lint.globals, function(pass) {
+        if (!pass) fail("Lint failed");
+        complete();
+    });
+}, { async: true });
 
 desc("Run tests with Mocha");
 task("test", function() {

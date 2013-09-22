@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "express": "~3.4.0",
-    "logule": "~2.0.0"
+    "logule": "~2.0.0",
+    "async": "~0.2.9"
   },
   "devDependencies": {
     "jake": "~0.7.2",
