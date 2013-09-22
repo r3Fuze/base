@@ -9,6 +9,7 @@ var checkmark = "\u2713", // ✓ //
 
 var logCode = true;
 
+// TODO: Re-do documentation
 // Lint single file
 function lintFile(filename, options, globals, callback) {
     // Read source from filename
@@ -45,6 +46,7 @@ function lintFile(filename, options, globals, callback) {
     });
 }
 
+// TODO: Re-do documentation
 // Lint multiple files
 function lintFiles(files, options, globals, callback) {
     var allPass = true;

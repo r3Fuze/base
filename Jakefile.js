@@ -3,11 +3,17 @@
 var conf  = require("./server/conf"),
     app   = require("./server/app"),
     log   = conf.log,
-    color = require("cli-color");
+    color = require("cli-color"),
+    fs    = require("fs"),
+    async = require("async"),
+    S     = require("string");
+    
+
+S.extendPrototype();
 
 
 /* TODO: Fix so it works with
- * prerequisites and3 async
+ * prerequisites and async
  * ====================== */
 // Keep old task function
 var _task = task;
@@ -84,6 +90,39 @@ task("test", function() {
     });
 }, { async: true });
 
+// TODO: Document this?
+desc("Find TODO: in files");
+task("todo", function(len) {
+    var files = new jake.FileList();
+    files.include("**/*.js");
+    files.exclude("node_modules");
+    
+    var total = 0;
+    
+    async.forEach(files.toArray(), function(filename, asyncDone) {
+        fs.readFile(filename, "utf-8", function(err, data) {
+            if (err) throw err;
+            var lines = data.split("\n");
+            
+            lines.forEach(function(line, i) {
+                line = line.collapseWhitespace();
+                if (line.contains("TODO:") && (line.startsWith("//") || line.startsWith("/*"))) {
+                    total++;
+                    len = +len || 3;
+                    console.log(color.yellow.bold(" Ln " + i) + ": " + color.underline(filename));
+                    console.log("   " + line);
+                    for (var j = 0; j < len; j++) {
+                        console.log("   " + lines[i + j + 1] + (j + 1 === len ? "\n\n" : ""));
+                    }
+                }
+            });
+            asyncDone();
+        });
+    }, function(err) {
+        if (err) throw err;
+        console.log(color.yellow.bold("TODO: total: " + total));
+    });
+}, { async: true });
 
 desc("Testing stuff");
 task("wat", function(strict) {
