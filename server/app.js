@@ -14,7 +14,7 @@ app.get("/", function(req, res) {
 
 
 var server = http.createServer(app);
-// , ip
+
 exports.listen = function(port, callback) {
     server.listen(port, callback);
 };

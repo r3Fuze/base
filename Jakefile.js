@@ -129,7 +129,7 @@ task("todo", function(len) {
 
 
 desc("Deploy to heroku");
-task("deploy", function() {
+task("deploy", ["default"], function() {
     jake.exec(["git push " + conf.heroku.gitUrl + " master"], { printStdout: true }, function() {
         console.log("pushed?");
         complete();
