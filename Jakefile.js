@@ -15,11 +15,12 @@ var _task = task;
 // Override task function
 task = function() {
     var args = arguments;
-    // If callback is an object (default task) use the old task function
-    if (typeof args[1] === "object") return _task.apply(this, args);
     
     // Create task with old function
     var t = _task.apply(this, args);
+    
+    // Don't do anything if it's the default task or __root__
+    if (t.name === "default" || t.name === "__root__") return _task.apply(this, args);
     
     // Save the old callback
     var _action = t.action;
