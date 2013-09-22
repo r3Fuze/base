@@ -13,7 +13,7 @@ var url = conf.IP + ":" + conf.PORT + "/";
 describe("App", function() {
     
     before(function(done) {
-        app.listen(conf.PORT, conf.IP, done);
+        app.listen(conf.PORT, done);
     });
     
     after(function(done) {

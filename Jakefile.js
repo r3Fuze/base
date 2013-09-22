@@ -46,8 +46,8 @@ task("default", ["lint", "test"]);
 
 desc("Run the app");
 task("run", function(port) {
-    port = port || conf.PORT;
-    app.listen(port, conf.IP, function() {
+    port = +port || conf.PORT;
+    app.listen(port, function() {
         // Using \u00A0 instead of a regular space because Cloud9 is a jerk
         // and prints 'Cloud9 Your application is running at ***' when it sees
         // 'Server_listening_on' in the console.. :(
@@ -57,6 +57,7 @@ task("run", function(port) {
         console.log(" " + color.bold.green("Ctrl+C to exit"));
     });
 });
+
 
 desc("Lint JavaScript files");
 task("lint", function() {
@@ -71,6 +72,7 @@ task("lint", function() {
         complete();
     });
 }, { async: true });
+
 
 desc("Run tests with Mocha");
 task("test", function() {
@@ -89,6 +91,7 @@ task("test", function() {
         complete();
     });
 }, { async: true });
+
 
 // TODO: Document this?
 desc("Find TODO: in files");
@@ -123,6 +126,7 @@ task("todo", function(len) {
         console.log(color.yellow.bold("TODO: total: " + total));
     });
 }, { async: true });
+
 
 desc("Testing stuff");
 task("wat", function(strict) {
