@@ -5,5 +5,5 @@ var conf = require("./server/conf"),
     
 
 app.listen(conf.PORT, conf.IP, function() {
-    log.info("Server listening on %s:%s", conf.IP, conf.PORT);
+    log.info("Server_listening on %s:%s", conf.IP, conf.PORT);
 });

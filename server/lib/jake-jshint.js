@@ -33,11 +33,15 @@ function lintFile(filename, options, globals, callback) {
     
                 // If the source of the error is known, log it and the line it on
                 if (error.evidence) {
-                    console.log("  " + color.bold("Ln " + error.line) + ": " + color.underline(error.evidence.trim()) + (logCode ? color.yellow(" (" + error.code + ")") : ""));
+                    var str = "  " + color.bold("Ln " + error.line) + ": " + color.underline(error.evidence.trim()) + (logCode ? color.yellow(" (" + error.code + ")") : "");
+                    console.log(str);
+                    
+                    // Show an arrow pointing at the error
+                    console.log(new Array(error.character + 3).join(" ") + color.red.bold(" ^ "));
                 }
                 
                 // Log the error type
-                console.log("      " + color.red.bold(error.reason) + "\n");
+                console.log("     " + color.red.bold(error.reason) + "\n");
             }
         }
         
