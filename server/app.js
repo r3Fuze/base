@@ -9,7 +9,7 @@ var app = express();
 
 
 app.get("/", function(req, res) {
-    res.send("Hello World! Deploying from Jake!");
+    res.send("Hello World! Deploying from Jake and desktop");
 });
 
 
