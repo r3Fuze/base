@@ -44,7 +44,9 @@ task("run", function(port) {
     app.listen(port, conf.IP, function() {
         // Using \u00A0 instead of a regular space because Cloud9 is a jerk
         // and prints 'Cloud9 Your application is running at ***' when it sees
-        // 'Server listening on' in the console.. :(
+        // 'Server_listening_on' in the console.. :(
+        // I also had to change the above line so it won't print when I 'cat Jakefile.js'
+        // I submitted a bug report so hopefully this will get fixed soon..
         console.log(" " + color.green("Server\u00A0listening on %s:%s"), conf.IP, port);
         console.log(" " + color.bold.green("Ctrl+C to exit"));
     });
