@@ -130,8 +130,9 @@ task("todo", function(len) {
 
 desc("Deploy to heroku");
 task("deploy", ["default"], function() {
-    jake.exec(["git push " + conf.heroku.gitUrl + " master"], { printStdout: true }, function() {
-        console.log("pushed?");
+    fail("deploy is not ready for use");
+    jake.exec(["git push " + conf.heroku.gitUrl + " master"], function() {
+        console.log("pushed");
         complete();
     });
 }, { async: true });
