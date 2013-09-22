@@ -26,7 +26,7 @@ task = function() {
     var t = _task.apply(this, args);
     
     // Don't do anything if it's the default task or __root__
-    if (t.name === "default" || t.name === "__root__") return _task.apply(this, args);
+    if (t.action === undefined) return _task.apply(this, args);
     
     // Save the old callback
     var _action = t.action;
@@ -42,7 +42,9 @@ task = function() {
 };
 
 
-task("default", ["lint", "test"]);
+task("default", ["lint", "test"], function() {
+    console.log("  " + color.bold.green.underline("ALL OK!!"));
+});
 
 desc("Run the app");
 task("run", function(port) {
@@ -147,5 +149,6 @@ task("wat", function(strict) {
 });
 
 function logTask(t) {
+    if (!t.description) return;
     console.log("\n" + color.blue("===== ") + color.bold.underline.yellow(t.description) + color.blue(" ====="));
 }
