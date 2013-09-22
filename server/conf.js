@@ -27,6 +27,10 @@ module.exports = {
         }
     },
     
+    heroku: {
+        gitUrl: "git@heroku.com:fuze-base.git"
+    }
+    
     // exports
     log: require("logule").init(module)
 };

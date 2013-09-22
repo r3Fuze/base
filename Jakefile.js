@@ -128,6 +128,15 @@ task("todo", function(len) {
 }, { async: true });
 
 
+desc("Deploy to heroku");
+task("deploy", function() {
+    jake.exec(["git push " + conf.heroku.gitUrl + " master"], { printStdout: true }, function() {
+        console.log("pushed?");
+        complete();
+    });
+}, { async: true });
+
+
 desc("Testing stuff");
 task("wat", function(strict) {
     if (strict === "true") log.info("STRICT");
