@@ -4,6 +4,6 @@ var conf = require("./server/conf"),
 
     
 
-app.listen(conf.PORT, conf.IP, function() {
+app.listen(conf.PORT, function() {
     log.info("Server_listening on %s:%s", conf.IP, conf.PORT);
 });
