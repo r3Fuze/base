@@ -43,8 +43,10 @@ task = function() {
 
 
 task("default", ["lint", "test"], function() {
-    console.log("  " + color.bold.green.underline("ALL OK!!"));
+    color.orange = color.xterm(166);
+    console.log("  " + color.orange.bold.underline("ALL OK!!"));
 });
+
 
 desc("Run the app");
 task("run", function(port) {
