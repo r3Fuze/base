@@ -53,7 +53,20 @@ task("run", function(port) {
     port = +port || conf.PORT;
     
     app.listen(port, function() {
-
+        var stdin = process.stdin;
+        stdin.resume();
+        stdin.setEncoding("utf8");
+        
+        stdin.on("data", function(chunk) {
+            var msg = chunk.toString().trim();
+            if (msg === "exit" || msg === "e") {
+                process.exit();
+            } else if (msg === "restart" || msg === "r") {
+                process.stdout.write(" Restart not working yet..\n > ");
+            } else {
+                process.stdout.write(color.red(" Unknown command") + "\n > ");
+            }
+        });
         
         // Using \u00A0 instead of a regular space because Cloud9 is a jerk
         // and prints 'Cloud9 Your application is running at ***' when it sees
@@ -62,6 +75,17 @@ task("run", function(port) {
         // I submitted a bug report so hopefully this will get fixed soon..
         console.log(" " + color.green("Server\u00A0listening on port %s"), port);
         console.log(" " + color.bold.green("Ctrl+C to exit"));
+        process.stdout.write(" > ");
+    });
+});
+
+task("input", function() {
+    var stdin = process.stdin;
+    stdin.resume();
+    stdin.setEncoding("utf8");
+    
+    stdin.on("data", function(chunk) {
+        process.stdout.write("Chunk: " + chunk.toString().trim() + "\n");
     });
 });
 
