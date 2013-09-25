@@ -1,22 +1,25 @@
 var express = require("express"),
     http    = require("http"),
     
+    dimsum  = require("dimsum"),
+    
     conf    = require("./conf"),
     log     = conf.log;
 
 var app = express();
 
 app.configure(function() {
-
+    dimsum.configure({ flavor: "latin" });
 });
+
 
 app.get("/", function(req, res) {
     res.send("Hello World! Deploying from Jake!aaa");
 });
 
-app.get("/api/date/:fn", function(req, res) {
-    var date = new Date();
-    res.send(date[req.params.fn]());
+
+app.get("/api/lorem/:len", function(req, res) {
+    res.send(dimsum(req.params.len));
 });
 
 
