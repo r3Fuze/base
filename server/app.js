@@ -1,4 +1,4 @@
-var express = require("express"),
+var app     = require("express")(),
     http    = require("http"),
     
     dimsum  = require("dimsum"),
@@ -6,7 +6,6 @@ var express = require("express"),
     conf    = require("./conf"),
     log     = conf.log;
 
-var app = express();
 
 app.configure(function() {
     dimsum.configure({ flavor: "latin" });
@@ -14,7 +13,7 @@ app.configure(function() {
 
 
 app.get("/", function(req, res) {
-    res.send("Hello World! Deploying from Jake!aaa");
+    res.send("Hello World! Deploying from Jake!");
 });
 
 
