@@ -1,5 +1,5 @@
-var conf = require("./server/conf"),
-    app  = require("./server/app"),
+var conf = require("./conf"),
+    app  = require("./app"),
     log  = conf.log;
 
 

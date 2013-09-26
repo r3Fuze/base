@@ -1,14 +1,17 @@
-var app     = require("express")(),
+var express = require("express"),
     http    = require("http"),
-    
-    dimsum  = require("dimsum"),
     
     conf    = require("./conf"),
     log     = conf.log;
 
+var app = express();
+
 
 app.configure(function() {
-    dimsum.configure({ flavor: "latin" });
+    app.set("views", __dirname + "/views");
+    app.set("view engine", "jade");
+    
+    app.use(express.static(__dirname + "/public"));
 });
 
 
@@ -17,8 +20,8 @@ app.get("/", function(req, res) {
 });
 
 
-app.get("/api/lorem/:len", function(req, res) {
-    res.send(dimsum(req.params.len));
+app.get("/jade-test", function(req, res) {
+    res.render("jade-test", { title:"Jade Test" });
 });
 
 

@@ -1,7 +1,7 @@
 /* global task:true, desc, jake, fail, complete */
 
-var conf  = require("./server/conf"),
-    app   = require("./server/app"),
+var conf  = require("./conf"),
+    app   = require("./app"),
     log   = conf.log,
     color = require("cli-color"),
     fs    = require("fs"),
@@ -92,7 +92,7 @@ task("input", function() {
 
 desc("Lint JavaScript files");
 task("lint", function() {
-    var lint = require("./server/lib/jake-jshint");
+    var lint = require("./lib/jake-jshint");
     var files = new jake.FileList();
     
     files.include("**/*.js");
@@ -111,7 +111,7 @@ task("test", function() {
     var mocha = new MochaTest({ reporter: "spec", ui: "bdd" });
     var files = new jake.FileList();
     
-    files.include("./server/test/_*_test.js");
+    files.include("./test/_*_test.js");
     
     files.forEach(function(file) {
         mocha.addFile(file);
