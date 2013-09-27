@@ -24,7 +24,7 @@
     "logule": "~2.0.0",
     "async": "~0.2.9",
     "string": "~1.6.0",
-    "jade": "~0.35.0"
+    "swig": "~1.0.0"
   },
   "devDependencies": {
     "jake": "~0.7.2",

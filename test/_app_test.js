@@ -8,7 +8,7 @@ var request = require("superagent"),
     conf    = require("../conf"),
     app     = require("../app");
     
-var url = conf.IP + ":" + conf.PORT + "/";
+var url = conf.IP + ":" + conf.PORT;
     
 describe("App", function() {
     
@@ -34,8 +34,7 @@ describe("App", function() {
     
     it("should have a status of 404 when the pages doesn't exist", function(done) {
         this.slow(500);
-        request.get(url + "does/not/exist", function(res) {
-            expect(res).to.exist;
+        request.get(url + "/does/not/exist", function(res) {
             expect(res.status).to.equal(404);
             
             done();
@@ -46,7 +45,6 @@ describe("App", function() {
     it("should have 'Hello World!' on the page", function(done) {
         this.slow(500);
         request.get(url, function(res) {
-            expect(res).to.exist;
             expect(res.status).to.equal(200);
             expect(res.text).to.contain("Hello World!");
             
@@ -55,12 +53,22 @@ describe("App", function() {
     });
     
     
-    it.skip("should correctly load the jade pages", function(done) {
+    it("should correctly load the swig pages", function(done) {
         this.slow(500);
-        request.get(url + "jade-test", function(res) {
-            expect(res).to.exist;
+        request.get(url + "/swig", function(res) {
             expect(res.status).to.equal(200);
-            expect(res.text).to.contain("This is from Jade");
+            expect(res.text).to.contain("This is made with Swig!");
+            
+            done();
+        });
+    });
+    
+    // TODO: Figure out how to test for caching
+    it.skip("should make pages load faster with caching", function(done) {
+        this.slow(500);
+        request.get(url + "/swig", function(res) {
+            expect(res.status).to.equal(200);
+            expect(res.text).to.contain("This is made with Swig!");
             
             done();
         });

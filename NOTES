@@ -2,3 +2,7 @@
 - Figure out where to place bower modules
 - Find best settings for codeship.io (currently using node 0.10.0)
 - Figure out 'engines' section in package.json
+- Jade is too slow..
+    - Use plain html and handlebars/moustache to insert scripts and css links?
+
+- Use a framework to test browser

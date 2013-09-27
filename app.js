@@ -1,5 +1,6 @@
 var express = require("express"),
     http    = require("http"),
+    swig    = require("swig"),
     
     conf    = require("./conf"),
     log     = conf.log;
@@ -9,7 +10,8 @@ var app = express();
 
 app.configure(function() {
     app.set("views", __dirname + "/views");
-    app.set("view engine", "jade");
+    app.engine("html", swig.renderFile);
+    app.set("view engine", "html");
     
     app.use(express.static(__dirname + "/public"));
 });
@@ -20,8 +22,8 @@ app.get("/", function(req, res) {
 });
 
 
-app.get("/jade-test", function(req, res) {
-    res.render("jade-test", { title:"Jade Test" });
+app.get("/swig", function(req, res) {
+    res.render("index");
 });
 
 
