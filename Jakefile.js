@@ -112,6 +112,7 @@ task("test", function() {
 
 desc("Build all resources (only assets for now)");
 task("build", function() {
+    // TODO: mute process.stdout temporarily. assetify logs when running require("assetify").instance()
     // Compile assets
     assetify.use(assetify.plugins.minifyCSS);
     assetify.use(assetify.plugins.minifyJS);

@@ -19,6 +19,7 @@ app.configure(function() {
     app.set("view engine", "html");
     
     // Enable middleware and expose 'assetify' to template
+    // TODO: Don't serve bundled assets in development. Makes things easier to debug 
     // Assets must be built with 'jake build' change this?
     assetify(app, express, conf.assetify.assets.bin);
     
