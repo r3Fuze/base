@@ -73,4 +73,6 @@ describe("App", function() {
             done();
         });
     });
+    
+    it.skip("should bundle all resources");
 });

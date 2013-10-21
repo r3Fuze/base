@@ -1,8 +1,6 @@
 /* global task:true, desc, jake, fail, complete */
 
 var conf     = require("./conf"),
-    app      = require("./app"),
-    assetify = require("assetify").instance(),
     log      = conf.log,
     color    = require("cli-color"),
     fs       = require("fs"),
@@ -40,7 +38,7 @@ task = function() {
 };
 
 
-task("default", ["lint", "test", "build"], function() {
+task("default", ["lint", /*"build",*/ "test"], function() {
     color.orange = color.xterm(166);
     console.log("\n  " + color.orange.bold.underline("ALL OK!!"));
 });
@@ -48,6 +46,8 @@ task("default", ["lint", "test", "build"], function() {
 
 desc("Run the app");
 task("run", function(port) {
+    var app = require("./app");
+    
     port = +port || conf.PORT;
     
     app.listen(port, function() {
@@ -109,6 +109,8 @@ task("test", function() {
 
 desc("Build all resources (only assets for now)");
 task("build", function() {
+    var assetify = require("assetify").instance();
+    
     // TODO: mute process.stdout temporarily. assetify logs when running require("assetify").instance()
     // Compile assets
     assetify.use(assetify.plugins.minifyCSS);

@@ -11,7 +11,7 @@
           "files": [
             "/css/style.css",
             "/css/item.css",
-            "/css/test.styl"
+            "/styl/test.styl"
           ]
         }
       ]

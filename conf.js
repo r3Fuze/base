@@ -12,7 +12,7 @@ module.exports = {
                 "/css/style.css",
                 "/css/item.css",
                 
-                "/css/test.styl"
+                "/styl/test.styl"
             ],
             js: [
                 "/js/main.js"
