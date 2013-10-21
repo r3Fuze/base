@@ -1,7 +1,9 @@
 var express  = require("express"),
     http     = require("http"),
+    stylus   = require("stylus"),
     swig     = require("swig"),
     assetify = require("assetify").instance(),
+    nib      = require("nib"),
     
     conf     = require("./conf"),
     log      = conf.log;
@@ -11,12 +13,35 @@ var app = express();
 app.configure(function() {
     app.set("views", __dirname + "/views");
     app.engine("html", swig.renderFile);
-    swig.setDefaults({
-        locals: {
-            wat: "Test string from node.js"
-        }
-    });
     app.set("view engine", "html");
+    
+    // TODO: Explain this shit
+    app.use(express.bodyParser());
+    app.use(express.cookieParser());
+    app.use(express.methodOverride());
+    
+    // TODO: Clean this up
+    app.locals = {
+        app: {
+            dev: true
+        },
+        wat: "Test string from node.js"
+    };
+    
+    // TODO: Document
+    app.use(app.router);
+    
+    // TODO: Document
+    app.use(stylus.middleware({
+        src: __dirname + "/public/styl",
+        dest: __dirname + "/public/css/",
+        compile: function(str, path) {
+            return stylus(str)
+                .set("filename", path)
+                .use(nib())
+                .import("nib");
+        }
+    }));
     
     // Enable middleware and expose 'assetify' to template
     // TODO: Don't serve bundled assets in development. Makes things easier to debug 

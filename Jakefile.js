@@ -13,9 +13,6 @@ var conf     = require("./conf"),
 S.extendPrototype();
 
 
-/* TODO: Fix so it works with
- * prerequisites and async
- * ====================== */
 // Keep old task function
 var _task = task;
 

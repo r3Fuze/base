@@ -8,14 +8,23 @@
         <title>{% block title %}Default title{% endblock %}</title>
         
         {% block head %}
-            {{ assetify.css.emit() }}
+            {% if app.dev %}
+                <link rel="stylesheet" href="/css/style.css">
+                <link rel="stylesheet" href="/css/test.css">
+            {% else %}
+                {{ assetify.css.emit() }}
+            {% endif %}
         {% endblock head %}
     </head>
     <body>
-        {% block content %}{% endblock %}
+        {% block content %}Default content{% endblock %}
         
         {% block scripts %}
-            {{ assetify.js.emit() }}
+            {% if app.dev %}
+                <script src="/js/main.js"></script>
+            {% else %}
+                {{ assetify.js.emit() }}
+            {% endif %}
         {% endblock scripts %}
     </body>
 </html>
