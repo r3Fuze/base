@@ -24,7 +24,10 @@
     "logule": "~2.0.0",
     "async": "~0.2.9",
     "string": "~1.6.0",
-    "swig": "~1.0.0"
+    "swig": "~1.0.0",
+    "assetify": "~0.8.6",
+    "stylus": "~0.38.0",
+    "nib": "~1.0.1"
   },
   "devDependencies": {
     "jake": "~0.7.2",

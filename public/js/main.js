@@ -1,1 +1,2 @@
-console.log("main.js");
+console.log("log from main.js");
+console.log("Another log!!");

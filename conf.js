@@ -4,6 +4,25 @@ module.exports = {
     
     secret: "NOT_SECRET",
     
+    assetify: {
+        assets: {
+            source: __dirname + "/public",
+            bin: __dirname + "/public/build",
+            css: [
+                "/css/style.css",
+                "/css/item.css",
+                
+                "/css/test.styl"
+            ],
+            js: [
+                "/js/main.js"
+            ]
+        },
+        forward: {
+            extnames: [".eot", ".woff", ".ttf", ".svg"]
+        }
+    },
+    
     lint: {
         globals: {},
         options: {

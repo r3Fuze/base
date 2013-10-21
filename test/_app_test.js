@@ -53,7 +53,7 @@ describe("App", function() {
     });
     
     
-    it("should correctly load the swig pages", function(done) {
+    it.skip("should correctly load the swig pages", function(done) {
         this.slow(500);
         request.get(url + "/swig", function(res) {
             expect(res.status).to.equal(200);

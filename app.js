@@ -1,17 +1,26 @@
-var express = require("express"),
-    http    = require("http"),
-    swig    = require("swig"),
+var express  = require("express"),
+    http     = require("http"),
+    swig     = require("swig"),
+    assetify = require("assetify").instance(),
     
-    conf    = require("./conf"),
-    log     = conf.log;
+    conf     = require("./conf"),
+    log      = conf.log;
 
 var app = express();
-
 
 app.configure(function() {
     app.set("views", __dirname + "/views");
     app.engine("html", swig.renderFile);
+    swig.setDefaults({
+        locals: {
+            wat: "Test string from node.js"
+        }
+    });
     app.set("view engine", "html");
+    
+    // Enable middleware and expose 'assetify' to template
+    // Assets must be built with 'jake build' change this?
+    assetify(app, express, conf.assetify.assets.bin);
     
     app.use(express.static(__dirname + "/public"));
 });
@@ -23,7 +32,9 @@ app.get("/", function(req, res) {
 
 
 app.get("/swig", function(req, res) {
-    res.render("index");
+    res.render("index", {
+        title: "Index!"
+    });
 });
 
 

@@ -1,12 +1,13 @@
 /* global task:true, desc, jake, fail, complete */
 
-var conf  = require("./conf"),
-    app   = require("./app"),
-    log   = conf.log,
-    color = require("cli-color"),
-    fs    = require("fs"),
-    async = require("async"),
-    S     = require("string");
+var conf     = require("./conf"),
+    app      = require("./app"),
+    assetify = require("assetify").instance(),
+    log      = conf.log,
+    color    = require("cli-color"),
+    fs       = require("fs"),
+    async    = require("async"),
+    S        = require("string");
     
 
 S.extendPrototype();
@@ -42,9 +43,9 @@ task = function() {
 };
 
 
-task("default", ["lint", "test"], function() {
+task("default", ["lint", "test", "build"], function() {
     color.orange = color.xterm(166);
-    console.log("  " + color.orange.bold.underline("ALL OK!!"));
+    console.log("\n  " + color.orange.bold.underline("ALL OK!!"));
 });
 
 
@@ -53,21 +54,6 @@ task("run", function(port) {
     port = +port || conf.PORT;
     
     app.listen(port, function() {
-        var stdin = process.stdin;
-        stdin.resume();
-        stdin.setEncoding("utf8");
-        
-        stdin.on("data", function(chunk) {
-            var msg = chunk.toString().trim();
-            if (msg === "exit" || msg === "e") {
-                process.exit();
-            } else if (msg === "restart" || msg === "r") {
-                process.stdout.write(" Restart not working yet..\n > ");
-            } else {
-                process.stdout.write(color.red(" Unknown command") + "\n > ");
-            }
-        });
-        
         // Using \u00A0 instead of a regular space because Cloud9 is a jerk
         // and prints 'Cloud9 Your application is running at ***' when it sees
         // 'Server_listening_on' in the console.. :(
@@ -75,9 +61,9 @@ task("run", function(port) {
         // I submitted a bug report so hopefully this will get fixed soon..
         console.log(" " + color.green("Server\u00A0listening on port %s"), port);
         console.log(" " + color.bold.green("Ctrl+C to exit"));
-        process.stdout.write(" > ");
     });
 });
+
 
 task("input", function() {
     var stdin = process.stdin;
@@ -96,7 +82,7 @@ task("lint", function() {
     var files = new jake.FileList();
     
     files.include("**/*.js");
-    files.exclude(["node_modules"]);
+    files.exclude(["node_modules", "public/build"]);
     
     var pass = lint.run(files.toArray(), conf.lint.options, conf.lint.globals, function(pass) {
         if (!pass) fail("Lint failed");
@@ -119,6 +105,22 @@ task("test", function() {
     
     mocha.run(function(failures) {
         if (failures) fail("Mocha test failed");
+        complete();
+    });
+}, { async: true });
+
+
+desc("Build all resources (only assets for now)");
+task("build", function() {
+    // Compile assets
+    assetify.use(assetify.plugins.minifyCSS);
+    assetify.use(assetify.plugins.minifyJS);
+    assetify.use(require("./lib/assetify-stylus").stylus);
+    assetify.use(assetify.plugins.bundle);
+    assetify.use(assetify.plugins.forward(conf.assetify.forward, true));
+    assetify.compile(conf.assetify, function(err) {
+        if (err) fail(err);
+        console.log("Built assets");
         complete();
     });
 }, { async: true });

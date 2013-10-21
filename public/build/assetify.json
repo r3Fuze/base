@@ -1,0 +1,39 @@
+{
+  "compilation": [
+    {
+      "key": "css",
+      "items": [
+        {
+          "profile": [
+            "all"
+          ],
+          "out": "/build/css/all.css",
+          "files": [
+            "/css/style.css",
+            "/css/item.css",
+            "/css/test.styl"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "js",
+      "items": [
+        {
+          "profile": [
+            "all"
+          ],
+          "out": "/build/js/all.js",
+          "files": [
+            "/js/main.js"
+          ]
+        }
+      ]
+    }
+  ],
+  "assets": {
+    "source": "/var/lib/stickshift/52643da55004462047000082/app-root/data/619777/public",
+    "bin": "/var/lib/stickshift/52643da55004462047000082/app-root/data/619777/public/build"
+  },
+  "binAssets": "/var/lib/stickshift/52643da55004462047000082/app-root/data/619777/public/build/assets"
+}
