@@ -23,7 +23,7 @@ app.configure(function() {
     // TODO: Clean this up
     app.locals = {
         app: {
-            dev: true
+            dev: conf.dev
         },
         wat: "Test string from node.js"
     };
@@ -32,16 +32,20 @@ app.configure(function() {
     app.use(app.router);
     
     // TODO: Document
-    app.use(stylus.middleware({
-        src: __dirname + "/public/styl",
-        dest: __dirname + "/public/css/",
-        compile: function(str, path) {
-            return stylus(str)
-                .set("filename", path)
-                .use(nib())
-                .import("nib");
-        }
-    }));
+    // Use stylus middleware if we are not using assetify
+    if (conf.dev) {
+        app.use(stylus.middleware({
+            src: __dirname + "/public/styl",
+            dest: __dirname + "/public/css/",
+            compile: function(str, path) {
+                return stylus(str)
+                    .set("filename", path)
+                    .set("compress", true)
+                    .use(nib())
+                    .import("nib");
+            }
+        }));
+    }
     
     // Enable middleware and expose 'assetify' to template
     // TODO: Don't serve bundled assets in development. Makes things easier to debug 

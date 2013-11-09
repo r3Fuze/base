@@ -4,6 +4,8 @@ module.exports = {
     
     secret: "NOT_SECRET",
     
+    dev: true,
+    
     assetify: {
         assets: {
             source: __dirname + "/public",

@@ -45,7 +45,7 @@ task("default", ["lint", /*"build",*/ "test"], function() {
 
 
 desc("Run the app");
-task("run", function(port) {
+task("run", /*["build"],*/ function(port) {
     var app = require("./app");
     
     port = +port || conf.PORT;
@@ -79,7 +79,7 @@ task("lint", function() {
     var files = new jake.FileList();
     
     files.include("**/*.js");
-    files.exclude(["node_modules", "public/build"]);
+    files.exclude(["node_modules", "public/build", "newrelic.js"]);
     
     var pass = lint.run(files.toArray(), conf.lint.options, conf.lint.globals, function(pass) {
         if (!pass) fail("Lint failed");

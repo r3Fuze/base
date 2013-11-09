@@ -1,3 +1,6 @@
+// Initialize newrelic
+require("newrelic");
+
 var conf = require("./conf"),
     app  = require("./app"),
     log  = conf.log;
